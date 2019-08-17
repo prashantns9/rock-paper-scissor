@@ -1,0 +1,7 @@
+./rps-server/node_modules
+./rps-server/.vscode
+./rps-server/package-lock.json
+./rps-client/dist
+./rps-client/.editorconfig
+./rps-client/node_modules
+./rps-client/package-lock.json

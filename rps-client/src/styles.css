@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+*{
+    font-family: Helvetica, sans-serif;
+}
+body{
+    background-color: #F9A825;
+}
+hr{
+    border-color: #fcfcfc;
+
+}

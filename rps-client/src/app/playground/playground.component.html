@@ -1,0 +1,40 @@
+<!-- Messages -->
+<br>
+<p class="lead message" *ngIf="!gameStarted">Waiting for opponent to join.</p>
+<p class="lead message" *ngIf="gameStarted && !opponentHasMoved">Waiting for opponent to play.</p>
+<p class="lead message" *ngIf="gameStarted && opponentHasMoved && !playerHasMoved">Opponent has made the move. Play
+    fast.</p>
+
+<!-- Move Area -->
+
+<div *ngIf="gameStarted && !playerHasMoved" style="margin-top: 5rem" class="container">
+    <div *ngFor="let moveOption of moveOptions"
+        [ngClass]="(moveOption.value === moveOptionSelected)? 'selected': 'unselected'" class="row"
+        (click)="selectOption(moveOption)">
+
+        <div class="col-2 offset-1">
+            <span>
+                <i class="fa fa-2x" 
+                    [ngClass]="{'fa-hand-rock-o': moveOption.value===0, 'fa-hand-paper-o': moveOption.value===1, 'fa-hand-scissors-o': moveOption.value===2}" 
+                    aria-hidden="true">
+                </i>
+            </span>
+        </div>
+        <div class="col-8">
+            <h3>{{moveOption.label}}</h3>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            <button type="button" class="float-right btn btn-dark" (click)="makeAMove()">Play</button>
+
+        </div>
+
+    </div>
+</div>
+<!-- Result -->
+<h3 class="message">{{result?result:''}}</h3>
+<h6 class="message">{{subResult?subResult:''}}</h6>
+
+<h5 *ngIf="gameOver" class="message">New game starts in {{newGameTimer}} seconds</h5>

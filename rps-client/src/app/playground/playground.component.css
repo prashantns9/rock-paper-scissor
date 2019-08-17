@@ -1,0 +1,24 @@
+
+.selected{
+    color: #F9A825;
+    background-color: #ffffff;
+    cursor: pointer;
+    margin-top:0.5rem;
+    margin-bottom: 0.5rem;
+    padding-top:0.5rem;
+    padding-bottom: 0.5rem;
+}
+.unselected{
+    color: #ffffff;
+    background-color: #F9A825;
+    cursor: pointer;
+    margin-top:0.5rem;
+    margin-bottom: 0.5rem;
+    padding-top:0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.message{
+    text-align: center;
+    color: #ffffff;
+}
