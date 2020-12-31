@@ -1,11 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
-*{
-    font-family: Helvetica, sans-serif;
+* {
+  font-family: Helvetica, sans-serif;
 }
-body{
-    background-color: #F9A825;
+body {
+  background-color: #f9a825;
 }
-hr{
-    border-color: #fcfcfc;
+hr {
+  border-color: #fcfcfc;
+}
 
+video {
+  border-radius: 0.3rem;
 }

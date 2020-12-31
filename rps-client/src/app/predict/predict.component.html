@@ -1,1 +1,11 @@
-<p>predict works!</p>
+<div class="row">
+  <div class="col-12">
+    <video autoplay id="webcam" width="300" height="300"></video>
+    <div style="width: 300px" *ngIf="currentMove; else holdStill">
+      <app-progress-bar [progress]="moveProgress"></app-progress-bar>
+    </div>
+  </div>
+</div>
+<ng-template #holdStill>
+  <div>Hold your hand still and close to camera.</div>
+</ng-template>

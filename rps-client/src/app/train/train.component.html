@@ -17,7 +17,7 @@
           <button
             type="button"
             class="btn btn-dark"
-            (click)="addExample('Rock')"
+            (click)="addExample(0)"
             *ngIf="rockProgress < 100; else done"
           >
             Add Rock
@@ -32,7 +32,7 @@
           <button
             type="button"
             class="btn btn-dark"
-            (click)="addExample('Paper')"
+            (click)="addExample(1)"
             *ngIf="paperProgress < 100; else done"
           >
             Add Paper
@@ -47,7 +47,7 @@
           <button
             type="button"
             class="btn btn-dark"
-            (click)="addExample('Scissor')"
+            (click)="addExample(2)"
             *ngIf="scissorProgress < 100; else done"
           >
             Add Scissor
@@ -70,15 +70,12 @@
     </div>
     <div class="col-12 text-left">
       <br /><br />
-      <p>We need a favor...</p>
       <p>
-        Before you can play the game, you need to add few images as an example
-        of your input gesture. Rest assure these images aren't sent to the
-        server and stays on your machine.
+        You need to add few images as an example of your input gestures. Rest
+        assured these images won't be sent to the server.
       </p>
       <p>
-        Please ensure good lighting and use gestures just like you want to use
-        in game.
+        Please ensure good lighting. Hold your hand still and close to camera.
       </p>
     </div>
   </div>

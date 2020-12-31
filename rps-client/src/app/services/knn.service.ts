@@ -3,6 +3,7 @@ import * as tf from "@tensorflow/tfjs";
 import * as mobilenet from "@tensorflow-models/mobilenet";
 import * as knnClassifier from "@tensorflow-models/knn-classifier";
 import { Prediction } from "../models/prediction";
+import { Move } from "../models/move.enum";
 
 @Injectable({
   providedIn: "root",
@@ -11,7 +12,6 @@ export class KnnService {
   private classifier;
   private mobilenet;
   private webcam;
-  private classes: Array<string> = ["Rock", "Paper", "Scissor"];
 
   constructor() {
     this.init();
@@ -29,10 +29,8 @@ export class KnnService {
     this.webcam = await tf.data.webcam(webcamElement);
   }
 
-  async addExample(className: string) {
+  async addExample(classId: Move) {
     if (!this.webcam) return;
-    console.log("Adding ", className);
-    let classId = this.classes.findIndex((n) => n === className);
     // Capture an image from the web camera.
     const img = await this.webcam.capture();
 
@@ -48,10 +46,8 @@ export class KnnService {
   }
 
   async predict() {
-    if (!this.webcam) return;
-
     let retVal = null;
-    if (this.classifier.getNumClasses() > 0) {
+    if (this.webcam && this.classifier && this.classifier.getNumClasses() > 0) {
       const img = await this.webcam.capture();
 
       // Get the activation from mobilenet from the webcam.
@@ -60,7 +56,7 @@ export class KnnService {
       const result = await this.classifier.predictClass(activation);
 
       retVal = new Prediction(
-        this.classes[result.label],
+        parseInt(result.label),
         result.confidences[result.label]
       );
       // Dispose the tensor to release the memory.

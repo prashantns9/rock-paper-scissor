@@ -18,42 +18,52 @@
   style="margin-top: 5rem"
   class="container"
 >
-  <div
-    *ngFor="let moveOption of moveOptions"
-    [ngClass]="
-      moveOption.value === moveOptionSelected ? 'selected' : 'unselected'
-    "
-    class="row"
-    (click)="selectOption(moveOption)"
-  >
-    <div class="col-2 offset-1">
-      <span>
-        <i
-          class="fa fa-2x"
-          [ngClass]="{
-            'fa-hand-rock-o': moveOption.value === 0,
-            'fa-hand-paper-o': moveOption.value === 1,
-            'fa-hand-scissors-o': moveOption.value === 2
-          }"
-          aria-hidden="true"
-        >
-        </i>
-      </span>
-    </div>
-    <div class="col-8">
-      <h3>{{ moveOption.label }}</h3>
-    </div>
-  </div>
-  <br />
   <div class="row">
-    <div class="col">
-      <button
-        type="button"
-        class="float-right btn btn-dark"
-        (click)="makeAMove()"
+    <div class="col-12 col-md-6">
+      <app-predict
+        (select)="selectOption({ value: $event })"
+        (play)="makeAMove()"
+      ></app-predict>
+    </div>
+    <div class="col-12 col-md-6">
+      <div
+        *ngFor="let moveOption of moveOptions"
+        [ngClass]="
+          moveOption.value === moveOptionSelected ? 'selected' : 'unselected'
+        "
+        class="row"
+        (click)="selectOption(moveOption)"
       >
-        Play
-      </button>
+        <div class="col-2 offset-1">
+          <span>
+            <i
+              class="fa fa-2x"
+              [ngClass]="{
+                'fa-hand-rock-o': moveOption.value === 0,
+                'fa-hand-paper-o': moveOption.value === 1,
+                'fa-hand-scissors-o': moveOption.value === 2
+              }"
+              aria-hidden="true"
+            >
+            </i>
+          </span>
+        </div>
+        <div class="col-8">
+          <h3>{{ moveOption.label }}</h3>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col">
+          <button
+            type="button"
+            class="float-right btn btn-dark"
+            (click)="makeAMove()"
+          >
+            Play
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

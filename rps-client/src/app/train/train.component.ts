@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Move } from "../models/move.enum";
 import { KnnService } from "../services/knn.service";
 
 @Component({
@@ -13,10 +14,10 @@ export class TrainComponent implements OnInit {
 
   constructor(private _knnService: KnnService) {}
 
-  addExample(className: string) {
-    this.rockProgress += className === "Rock" ? 20 : 0;
-    this.paperProgress += className === "Paper" ? 20 : 0;
-    this.scissorProgress += className === "Scissor" ? 20 : 0;
+  addExample(className: Move) {
+    this.rockProgress += className === Move.Rock ? 20 : 0;
+    this.paperProgress += className === Move.Paper ? 20 : 0;
+    this.scissorProgress += className === Move.Scissor ? 20 : 0;
     this._knnService.addExample(className);
   }
 
