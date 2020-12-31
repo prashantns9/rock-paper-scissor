@@ -1,57 +1,51 @@
-import { Component, OnInit } from '@angular/core';
-import { SocketService } from '../socket.service';
-import { Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { SocketService } from "../services/socket.service";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-lobby',
-  templateUrl: './lobby.component.html',
-  styleUrls: ['./lobby.component.css']
+  selector: "app-lobby",
+  templateUrl: "./lobby.component.html",
+  styleUrls: ["./lobby.component.css"],
 })
 export class LobbyComponent implements OnInit {
-
-  constructor(private _socketService: SocketService,
-    private _router: Router){
-
-    this._socketService.notifications().subscribe(msg=>{
+  constructor(private _socketService: SocketService, private _router: Router) {
+    this._socketService.notifications().subscribe((msg) => {
       alert(msg);
     });
 
-    this._socketService.roomJoined().subscribe((room)=>{
+    this._socketService.roomJoined().subscribe((room) => {
       this._socketService.room = room;
-      this._router.navigate(['playground']);
+      this._router.navigate(["playground"]);
     });
 
-    this._socketService.roomCreated().subscribe((room)=>{
+    this._socketService.roomCreated().subscribe((room) => {
       this.joinRoom(room);
     });
-
   }
 
-  createRoom(){ 
-    let roomName = prompt('Room name?');
-    if(roomName){
-      this._socketService.sendMessage('create-room', roomName);
+  createRoom() {
+    let roomName = prompt("Room name?");
+    if (roomName) {
+      this._socketService.sendMessage("create-room", roomName);
     }
   }
 
-  joinRoom(room = null){
+  joinRoom(room = null) {
     let roomName = room;
-    if(!roomName){
-      roomName = prompt('Room name?');
+    if (!roomName) {
+      roomName = prompt("Room name?");
     }
-    this._socketService.sendMessage('join-room', roomName);
+    this._socketService.sendMessage("join-room", roomName);
   }
 
-  getRooms(){
-    let roomName = prompt('Room name?');
-    this._socketService.sendMessage('get-rooms',roomName);
+  getRooms() {
+    let roomName = prompt("Room name?");
+    this._socketService.sendMessage("get-rooms", roomName);
   }
 
-  broadcast(){
-    this._socketService.sendMessage('broadcast',this._socketService.room)
+  broadcast() {
+    this._socketService.sendMessage("broadcast", this._socketService.room);
   }
 
-  ngOnInit(){
-    
-  }
+  ngOnInit() {}
 }
