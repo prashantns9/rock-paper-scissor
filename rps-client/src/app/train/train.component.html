@@ -1,1 +1,87 @@
-<video autoplay id="webcam" width="300" height="300"></video>
+<div class="container">
+  <div class="row">
+    <div class="col-12 text-center">
+      <br /><br />
+      <h5>Training Phase</h5>
+      <br /><br />
+    </div>
+    <div class="col-12 col-md-6">
+      <video autoplay id="webcam" width="300" height="300"></video>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="row input">
+        <div class="col-8">
+          <app-progress-bar [progress]="rockProgress"></app-progress-bar>
+        </div>
+        <div class="col-4">
+          <button
+            type="button"
+            class="btn btn-dark"
+            (click)="addExample('Rock')"
+            *ngIf="rockProgress < 100; else done"
+          >
+            Add Rock
+          </button>
+        </div>
+      </div>
+      <div class="row input">
+        <div class="col-8">
+          <app-progress-bar [progress]="paperProgress"></app-progress-bar>
+        </div>
+        <div class="col-4">
+          <button
+            type="button"
+            class="btn btn-dark"
+            (click)="addExample('Paper')"
+            *ngIf="paperProgress < 100; else done"
+          >
+            Add Paper
+          </button>
+        </div>
+      </div>
+      <div class="row input">
+        <div class="col-8">
+          <app-progress-bar [progress]="scissorProgress"></app-progress-bar>
+        </div>
+        <div class="col-4">
+          <button
+            type="button"
+            class="btn btn-dark"
+            (click)="addExample('Scissor')"
+            *ngIf="scissorProgress < 100; else done"
+          >
+            Add Scissor
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 text-center">
+      <br /><br />
+      <button
+        type="button"
+        class="btn btn-dark"
+        [routerLink]="'/lobby'"
+        [disabled]="
+          rockProgress < 100 || paperProgress < 100 || scissorProgress < 100
+        "
+      >
+        Play Game
+      </button>
+    </div>
+    <div class="col-12 text-left">
+      <br /><br />
+      <p>We need a favor...</p>
+      <p>
+        Before you can play the game, you need to add few images as an example
+        of your input gesture. Rest assure these images aren't sent to the
+        server and stays on your machine.
+      </p>
+      <p>
+        Please ensure good lighting and use gestures just like you want to use
+        in game.
+      </p>
+    </div>
+  </div>
+</div>
+
+<ng-template #done> <p>Done!</p> </ng-template>

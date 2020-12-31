@@ -8,8 +8,8 @@ const routes: Routes = [
   { path: "lobby", component: LobbyComponent },
   { path: "playground", component: PlaygroundComponent },
   { path: "train", component: TrainComponent },
-  { path: "", redirectTo: "training", pathMatch: "prefix" },
-  { path: "**", redirectTo: "training" },
+  { path: "", redirectTo: "train", pathMatch: "prefix" },
+  { path: "**", redirectTo: "train" },
 ];
 
 @NgModule({

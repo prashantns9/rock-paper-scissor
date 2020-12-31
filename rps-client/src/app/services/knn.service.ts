@@ -18,17 +18,20 @@ export class KnnService {
   }
 
   async init() {
+    console.log("Loading Mobilenet");
     this.mobilenet = await mobilenet.load();
+    console.log("Creating classifier");
     this.classifier = knnClassifier.create();
   }
 
   async addWebCam(webcamElement: HTMLVideoElement) {
+    console.log("Added Webcam");
     this.webcam = await tf.data.webcam(webcamElement);
   }
 
   async addExample(className: string) {
     if (!this.webcam) return;
-
+    console.log("Adding ", className);
     let classId = this.classes.findIndex((n) => n === className);
     // Capture an image from the web camera.
     const img = await this.webcam.capture();

@@ -1,0 +1,10 @@
+.progress-bar-container {
+  border-radius: 0.3rem;
+  border: 1px solid #ffffff;
+  height: 12px;
+}
+.progress-bar-container .filled {
+  background-color: #ffffff;
+  float: left;
+  height: 12px;
+}
