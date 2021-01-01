@@ -8,6 +8,8 @@ import { LobbyComponent } from "./lobby/lobby.component";
 import { ProgressBarComponent } from "./progress-bar/progress-bar.component";
 import { PredictComponent } from "./predict/predict.component";
 import { TrainComponent } from "./train/train.component";
+import { PlaygroundGuard } from "./guards/playgroud.guard";
+import { LobbyGuard } from "./guards/lobby.guard";
 
 @NgModule({
   declarations: [
@@ -19,7 +21,7 @@ import { TrainComponent } from "./train/train.component";
     TrainComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
-  providers: [],
+  providers: [PlaygroundGuard, LobbyGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

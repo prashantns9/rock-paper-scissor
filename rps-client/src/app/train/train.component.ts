@@ -44,6 +44,8 @@ export class TrainComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.stream.getTracks()[0].stop();
+    this.stream.getTracks().forEach(function (track) {
+      track.stop();
+    });
   }
 }

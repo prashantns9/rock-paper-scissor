@@ -45,7 +45,7 @@ export class PredictComponent implements OnInit {
                 this.currentMove = null;
                 this.select.emit(this.currentMove);
               }
-            }, 250);
+            }, 200);
           }
         }
       }

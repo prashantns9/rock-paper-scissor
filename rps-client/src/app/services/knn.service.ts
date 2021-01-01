@@ -47,7 +47,7 @@ export class KnnService {
 
   async predict() {
     let retVal = null;
-    if (this.webcam && this.classifier && this.classifier.getNumClasses() > 0) {
+    if (this.isReady()) {
       const img = await this.webcam.capture();
 
       // Get the activation from mobilenet from the webcam.
@@ -65,5 +65,13 @@ export class KnnService {
 
     await tf.nextFrame();
     return retVal;
+  }
+
+  public isReady() {
+    return !!(
+      this.webcam &&
+      this.classifier &&
+      this.classifier.getNumClasses() > 0
+    );
   }
 }
