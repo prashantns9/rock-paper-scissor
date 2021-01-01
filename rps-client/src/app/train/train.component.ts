@@ -8,6 +8,8 @@ import { KnnService } from "../services/knn.service";
   styleUrls: ["./train.component.css"],
 })
 export class TrainComponent implements OnInit {
+  stream;
+
   rockProgress: number = 0;
   paperProgress: number = 0;
   scissorProgress: number = 0;
@@ -32,11 +34,16 @@ export class TrainComponent implements OnInit {
     navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
       if (webcamElement) {
         webcamElement.srcObject = stream;
+        this.stream = stream;
       }
     });
 
     if (webcamElement) {
       this._knnService.addWebCam(webcamElement);
     }
+  }
+
+  ngOnDestroy() {
+    this.stream.getTracks()[0].stop();
   }
 }

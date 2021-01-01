@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  socketUrl: 'https://rock-paper-scissors-prashant.herokuapp.com'
+  socketUrl: "http://localhost:4000",
 };
 
 /*

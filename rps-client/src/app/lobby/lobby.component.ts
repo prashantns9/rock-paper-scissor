@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { SocketService } from "../services/socket.service";
 import { Router } from "@angular/router";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-lobby",
@@ -8,20 +9,8 @@ import { Router } from "@angular/router";
   styleUrls: ["./lobby.component.css"],
 })
 export class LobbyComponent implements OnInit {
-  constructor(private _socketService: SocketService, private _router: Router) {
-    this._socketService.notifications().subscribe((msg) => {
-      alert(msg);
-    });
-
-    this._socketService.roomJoined().subscribe((room) => {
-      this._socketService.room = room;
-      this._router.navigate(["playground"]);
-    });
-
-    this._socketService.roomCreated().subscribe((room) => {
-      this.joinRoom(room);
-    });
-  }
+  subscriptions: Array<Subscription> = [];
+  constructor(private _socketService: SocketService, private _router: Router) {}
 
   createRoom() {
     let roomName = prompt("Room name?");
@@ -47,5 +36,27 @@ export class LobbyComponent implements OnInit {
     this._socketService.sendMessage("broadcast", this._socketService.room);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.subscriptions.push(
+      this._socketService.notifications().subscribe((msg) => {
+        alert(msg);
+      })
+    );
+    this.subscriptions.push(
+      this._socketService.roomJoined().subscribe((room) => {
+        this._socketService.room = room;
+        this._router.navigate(["playground"]);
+      })
+    );
+    this.subscriptions.push(
+      this._socketService.roomCreated().subscribe((room) => {
+        this.joinRoom(room);
+      })
+    );
+  }
+  ngOnDestroy() {
+    this.subscriptions.forEach((sub) => {
+      if (sub) sub.unsubscribe();
+    });
+  }
 }

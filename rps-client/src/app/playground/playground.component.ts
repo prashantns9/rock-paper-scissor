@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { Subscription } from "rxjs";
 import { SocketService } from "../services/socket.service";
 
 @Component({
@@ -22,21 +24,9 @@ export class PlaygroundComponent implements OnInit {
   opponentHasMoved = false;
   result = "";
   subResult = "";
+  subscriptions: Array<Subscription> = [];
 
-  constructor(private _socketService: SocketService) {
-    this._socketService.notifications().subscribe((msg) => {
-      //alert(msg);
-    });
-    this._socketService.startGame().subscribe((msg) => {
-      console.log(msg);
-      this.gameStarted = true;
-    });
-    this._socketService.opponentMove().subscribe((move) => {
-      this.opponentsMove = move;
-      this.opponentHasMoved = true;
-      this.calculateResult();
-    });
-  }
+  constructor(private _socketService: SocketService, private _router: Router) {}
 
   makeAMove() {
     if (this.moveOptionSelected !== null) {
@@ -95,8 +85,38 @@ export class PlaygroundComponent implements OnInit {
     this.subResult = "";
   }
 
+  initSubscriptions() {
+    this.subscriptions.push(
+      this._socketService.startGame().subscribe((msg) => {
+        console.log(msg);
+        this.gameStarted = true;
+      })
+    );
+
+    this.subscriptions.push(
+      this._socketService.opponentMove().subscribe((move) => {
+        this.opponentsMove = move;
+        this.opponentHasMoved = true;
+        this.calculateResult();
+      })
+    );
+
+    this.subscriptions.push(
+      this._socketService.opponentLeft().subscribe((_) => {
+        this._router.navigate(["/lobby"]);
+      })
+    );
+  }
+
   ngOnInit() {
+    this.initSubscriptions();
     this.initPlayground();
     this._socketService.sendMessage("player-in-game", this._socketService.room);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((sub) => {
+      if (sub) sub.unsubscribe();
+    });
   }
 }
