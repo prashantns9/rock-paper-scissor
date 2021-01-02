@@ -24,7 +24,6 @@ io.on("connection", (socket) => {
   socket.on("create-room", (name) => {
     let roomCreated = rps.createRoom(name);
     if (roomCreated) {
-      socket.emit("notification", name + " was created");
       socket.emit("room-created", name);
     } else {
       socket.emit("notification", "Room already exists.");

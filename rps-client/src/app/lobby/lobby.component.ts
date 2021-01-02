@@ -24,7 +24,9 @@ export class LobbyComponent implements OnInit {
     if (!roomName) {
       roomName = prompt("Room name?");
     }
-    this._socketService.sendMessage("join-room", roomName);
+    if (roomName) {
+      this._socketService.sendMessage("join-room", roomName);
+    }
   }
 
   getRooms() {
