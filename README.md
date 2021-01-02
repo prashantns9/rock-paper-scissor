@@ -1,4 +1,4 @@
-# rock-paper-scissor
+# Rock Paper and Scissors
 
 ## Realtime socket based Rock, Paper & Scissors game played by hand gestures using webcam. Built using TensorflowJs and Socket.io
 
